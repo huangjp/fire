@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.fire</groupId>
+        <artifactId>fire-bundles</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fire.system</groupId>
+    <artifactId>fire-system-bundles</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>com.fire</groupId>
+                <artifactId>fire-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fire.common</groupId>
+                <artifactId>fire-common-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fire.third.party</groupId>
+                <artifactId>fire-third-party-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fire.system</groupId>
+                <artifactId>fire-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fire</groupId>
+            <artifactId>fire-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fire.common</groupId>
+            <artifactId>fire-common-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fire.third.party</groupId>
+            <artifactId>fire-third-party-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>fire-system-api</module>
+        <module>fire-system-ur</module>
+    </modules>
+
+</project>

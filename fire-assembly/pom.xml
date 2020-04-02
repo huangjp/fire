@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>fire</artifactId>
+        <groupId>com.fire</groupId>
+        <version>1.0-SNAPSHOT</version>
+<!--        <version>4.2.8</version>-->
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fire.assembly</groupId>
+    <artifactId>fire-assembly</artifactId>
+    <packaging>karaf-assembly</packaging>
+
+    <dependencies>
+        <!-- assembly 依赖 start -->
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>framework</artifactId>
+            <version>${karaf.version}</version>
+            <type>kar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>standard</artifactId>
+            <version>${karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- assembly 依赖 end -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <installedBundles>
+                        <installedBundle>mvn:commons-lang/commons-lang/2.6</installedBundle>
+                    </installedBundles>
+                    <installedFeatures>
+                        <!-- JDBC 依赖 -->
+                        <feature>scr</feature>
+                        <feature>jdbc</feature>
+                        <feature>pax-jdbc-derby</feature>
+                    </installedFeatures>
+                    <bootFeatures>
+                        <feature>bundle</feature>
+                        <feature>config</feature>
+                        <feature>diagnostic</feature>
+                        <feature>feature</feature>
+                        <feature>jaas</feature>
+                        <feature>shell</feature>
+                        <feature>log</feature>
+                        <feature>management</feature>
+                        <feature>package</feature>
+                        <feature>shell-compat</feature>
+                        <feature>ssh</feature>
+                        <feature>system</feature>
+                        <feature>wrap</feature>
+
+                        <feature>webconsole</feature>
+                    </bootFeatures>
+                    <archiveZip>false</archiveZip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
