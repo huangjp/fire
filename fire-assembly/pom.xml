@@ -37,6 +37,7 @@
             <groupId>com.fire.system</groupId>
             <artifactId>fire-system-web-features</artifactId>
             <version>${project.version}</version>
+            <type>pom</type>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.fire.kar</groupId>-->
