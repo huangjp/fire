@@ -32,6 +32,18 @@
             <scope>runtime</scope>
         </dependency>
         <!-- assembly 依赖 end -->
+
+        <dependency>
+            <groupId>com.fire.system</groupId>
+            <artifactId>fire-system-web-features</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fire.kar</groupId>-->
+<!--            <artifactId>fire-kar</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <type>kar</type>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -42,9 +54,6 @@
                 <extensions>true</extensions>
                 <configuration>
                     <finalName>${project.artifactId}</finalName>
-                    <installedBundles>
-                        <installedBundle>mvn:commons-lang/commons-lang/2.6</installedBundle>
-                    </installedBundles>
                     <installedFeatures>
                         <!-- JDBC 依赖 -->
                         <feature>scr</feature>
@@ -65,7 +74,7 @@
                         <feature>ssh</feature>
                         <feature>system</feature>
                         <feature>wrap</feature>
-
+                        <feature>fire-system</feature>
                         <feature>webconsole</feature>
                     </bootFeatures>
                     <archiveZip>false</archiveZip>

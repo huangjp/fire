@@ -19,42 +19,51 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
  */
 public class SystemUrActivator implements BundleActivator {
 
+    private FireServiceTracker<IResourceService, IResourceService> tracker;
+    private ServiceRegistration<IResourceScanService> imServiceReg;
+
     @Override
     public void start(BundleContext context) throws Exception {
 
         // 注册资源扫描服务
         IResourceScanService service = new ResourceScanService();
-        ServiceRegistration<IResourceScanService> imServiceReg = context.registerService(IResourceScanService.class,
+        imServiceReg = context.registerService(IResourceScanService.class,
                 service, null);
 
-        FireServiceTracker tracker = new FireServiceTracker(context, IResourceService.class, new ServiceTrackerCustomizer() {
-            @Override
-            public Object addingService(ServiceReference reference) {
-                // 每发现一次资源注册，就执行一次扫描
-                IResourceService resourceService = (IResourceService) context.getService(reference);
-                return service.scan(resourceService);
-            }
+        tracker = new FireServiceTracker<>(context, IResourceService.class,
+                new ServiceTrackerCustomizer<IResourceService, IResourceService>() {
+                    @Override
+                    public IResourceService addingService(ServiceReference reference) {
+                        // 每发现一次资源注册，就执行一次扫描
+                        IResourceService resourceService = (IResourceService) context.getService(reference);
+                        return service.scan(resourceService);
+                    }
 
-            @Override
-            public void modifiedService(ServiceReference reference, Object instance) {
-                // 每发现一次资源注册，就执行一次扫描
-                IResourceService resourceService = (IResourceService) instance;
-                service.modified(resourceService);
-            }
+                    @Override
+                    public void modifiedService(ServiceReference reference, IResourceService instance) {
+                        // 每发现一次资源注册，就执行一次扫描
+                        IResourceService resourceService = (IResourceService) instance;
+                        service.modified(resourceService);
+                    }
 
-            @Override
-            public void removedService(ServiceReference reference, Object instance) {
-                // 每次删除服务，对应的资源也要删除
-                IResourceService resourceService = (IResourceService) instance;
-                service.remove(resourceService);
-            }
-        });
+                    @Override
+                    public void removedService(ServiceReference reference, IResourceService instance) {
+                        // 每次删除服务，对应的资源也要删除
+                        IResourceService resourceService = (IResourceService) instance;
+                        service.remove(resourceService);
+                    }
+                });
 
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-
+        if (tracker != null) {
+            tracker.close();
+        }
+        if (imServiceReg != null) {
+            imServiceReg.unregister();
+        }
     }
 
 }

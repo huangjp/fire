@@ -20,12 +20,16 @@
         <bnd.version.policy>[$(version;==;$(@)),$(version;+;$(@)))</bnd.version.policy>
         <!-- Disable OBR repository update by default -->
         <obrRepository>NONE</obrRepository>
+
+        <cglib.bundle.version>3.2.9_1</cglib.bundle.version>
+        <cxf.version>3.3.5</cxf.version>
+        <jackson.version>2.10.2</jackson.version>
     </properties>
 
     <modules>
+        <module>fire-bundles</module>
         <module>fire-kar</module>
         <module>fire-assembly</module>
-        <module>fire-bundles</module>
     </modules>
 
     <build>
@@ -41,6 +45,7 @@
                     <groupId>org.apache.karaf.tooling</groupId>
                     <artifactId>karaf-maven-plugin</artifactId>
                     <version>${karaf.version}</version>
+                    <extensions>true</extensions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -70,7 +75,7 @@
                         </goals>
                         <configuration>
                             <versions>
-                                <karaf.osgi.version>${project.version}</karaf.osgi.version>
+                                <karaf.osgi.version>${karaf.version}</karaf.osgi.version>
                             </versions>
                         </configuration>
                     </execution>

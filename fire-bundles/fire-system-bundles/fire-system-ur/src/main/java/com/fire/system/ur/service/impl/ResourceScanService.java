@@ -8,6 +8,9 @@ import com.fire.system.api.annotation.PowerInjection;
 import com.fire.system.api.model.ResourceGroupModel;
 import com.fire.system.api.model.ResourceModel;
 import com.fire.third.party.api.IPersistentService;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 import org.osgi.service.component.annotations.Reference;
 import org.springframework.beans.BeanUtils;
 
@@ -58,8 +61,19 @@ public class ResourceScanService implements IResourceScanService, IService {
 
             // 持久化入库
             thisMap.insert(parentResource);
-            // TODO 有权限资源需求时，换成代理实例再返回
-            return service;
+
+            // 构建动态代理
+            Enhancer enhancer = new Enhancer();
+            enhancer.setSuperclass(service.getClass());
+            enhancer.setCallback(new MethodInterceptor() {
+                @Override
+                public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+                    // TODO 实现权限控制相关逻辑
+                    return methodProxy.invokeSuper(o, objects);
+                }
+            });
+            // 有权限资源需求时，换成代理实例再返回
+            return (IResourceService) enhancer.create();
         }
 
         // 没有权限资源需求，直接原装服务返回
@@ -68,12 +82,35 @@ public class ResourceScanService implements IResourceScanService, IService {
 
     @Override
     public IResourceService modified(IResourceService service) {
-        return null;
+        // 类上的注解作为群组存在
+        PowerInjection injection = service.getClass().getAnnotation(PowerInjection.class);
+        if (injection != null) {
+
+            // 清空原先绑定的数据
+            remove(service);
+
+            // 重新扫描
+            return scan(service);
+        }
+
+        return service;
     }
 
     @Override
     public IResourceService remove(IResourceService service) {
-        return null;
+        // 类上的注解作为群组存在
+        PowerInjection injection = service.getClass().getAnnotation(PowerInjection.class);
+        if (injection != null) {
+            String code = injection.code();
+            String name = injection.name();
+            if ("".equals(name)) {
+                name = service.getClass().getSimpleName();
+            }
+            // 获取持久层实
+            IPersistentService thisMap = persistentService.createAndGet(this.name, path, this.name);
+            thisMap.get(this.name).clear(md5(name, code));
+        }
+        return service;
     }
 
     /**

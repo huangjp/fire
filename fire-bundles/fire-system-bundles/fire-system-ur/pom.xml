@@ -19,6 +19,17 @@
             <groupId>com.fire.system</groupId>
             <artifactId>fire-system-api</artifactId>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>cglib</groupId>-->
+<!--            <artifactId>cglib</artifactId>-->
+<!--            <version>3.3.0</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
+            <version>${cglib.bundle.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

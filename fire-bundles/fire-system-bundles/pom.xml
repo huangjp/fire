@@ -60,6 +60,8 @@
     <modules>
         <module>fire-system-api</module>
         <module>fire-system-ur</module>
+        <module>fire-system-web</module>
+        <module>fire-system-web-features</module>
     </modules>
 
 </project>
