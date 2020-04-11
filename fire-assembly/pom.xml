@@ -57,9 +57,10 @@
                     <finalName>${project.artifactId}</finalName>
                     <installedFeatures>
                         <!-- JDBC 依赖 -->
-                        <feature>scr</feature>
-                        <feature>jdbc</feature>
-                        <feature>pax-jdbc-derby</feature>
+<!--                        <feature>scr</feature>-->
+<!--                        <feature>jdbc</feature>-->
+<!--                        <feature>pax-jdbc-derby</feature>-->
+                        <feature>fire-system</feature>
                     </installedFeatures>
                     <bootFeatures>
                         <feature>bundle</feature>
@@ -75,7 +76,6 @@
                         <feature>ssh</feature>
                         <feature>system</feature>
                         <feature>wrap</feature>
-                        <feature>fire-system</feature>
                         <feature>webconsole</feature>
                     </bootFeatures>
                     <archiveZip>false</archiveZip>

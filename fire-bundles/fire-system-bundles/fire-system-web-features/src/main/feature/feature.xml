@@ -28,7 +28,6 @@
     <feature name="fire-http-resource" version="${project.version}">
         <feature>scr</feature>
         <feature>http-whiteboard</feature>
-        <bundle>mvn:org.apache.karaf.examples/karaf-http-resource-example-whiteboard/${project.version}</bundle>
     </feature>
 
     <feature name="fire-common" version="${project.version}">
@@ -38,6 +37,7 @@
 
     <feature name="fire-third-party-bundles" version="${project.version}">
         <feature dependency="true">fire-common</feature>
+        <bundle>mvn:com.google.guava/guava/27.0-jre</bundle>
         <bundle>mvn:com.fire.third.party/fire-third-party-api/${project.version}</bundle>
         <bundle>mvn:com.fire.third.party/fire-third-party-thread/${project.version}</bundle>
         <bundle>mvn:com.fire.third.party/fire-third-party-persistent-bdb/${project.version}</bundle>
@@ -49,6 +49,8 @@
 
         <!-- 系统模块公共API start-->
         <bundle>mvn:com.fire.system/fire-system-api/${project.version}</bundle>
+
+        <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/${cglib.bundle.version}</bundle>
         <bundle>mvn:com.fire.system/fire-system-ur/${project.version}</bundle>
         <!-- 系统模块公共API end-->
 

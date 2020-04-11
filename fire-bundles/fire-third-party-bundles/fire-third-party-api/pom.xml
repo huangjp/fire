@@ -28,7 +28,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>com.fire.third.party.api</Export-Package>
+                        <Export-Package>com.fire.third.party.api.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
